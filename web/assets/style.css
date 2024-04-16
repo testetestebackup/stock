@@ -26,6 +26,16 @@
 }
 
 
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 48
+    
+}
+
 * {
     box-sizing: border-box;
     padding: 0px;
@@ -42,6 +52,12 @@ input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+input, select, button {
+    border: solid 1px #161616;
+    outline-color: #1e88e5;
+    outline-width: 1px;
 }
 
 body {
@@ -102,15 +118,6 @@ body {
 h1 {
     text-align: center; /* Alinha o texto do h1 ao centro */
 
-}
-
-.material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 100,
-    'GRAD' 0,
-    'opsz' 48
-    
 }
 
 .form-ics .input-field {
@@ -196,6 +203,10 @@ h1 {
 }
 
 .li-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     padding: 10px;
     border-bottom: 1px solid #000; /* Adiciona uma linha de divisão entre os itens */
     border-right: 1px solid #000; 
@@ -269,6 +280,8 @@ h1 {
     transition: 0.2s;
 }
 
+.display-line
+
 .btn-1 {
     width: 100%;
     flex: 1;
@@ -293,30 +306,40 @@ h1 {
 
 .btn-3 {
     width: auto;
-    margin: 0 auto; /* Centraliza o botão horizontalmente */
-
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-size: 12px;
-    font-style: normal;
-
     cursor: pointer;
 
     margin-top: 6px;
-    padding: 0.8rem;
 
-    background-color: #e69494;
+    background-color: #f1f1f1;
     color: #0e0e0e;
 
     border: 1px, #161616;
     border-radius: 4px;
+    box-shadow: none;
+    outline: none;
 
     transition: 0.2s;
 }
 
 .btn-4 {
+    width: auto;
+    cursor: pointer;
+
+    margin-top: 6px;
+
+    background-color: #f1f1f1;
+    color: #0e0e0e;
+
+    border: 1px, #161616;
+    border-radius: 4px;
+    box-shadow: none;
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.btn-5 {
     width: 100%;
-    flex: 1;
 
     font-family: "Poppins", sans-serif;
     font-weight: 600;
@@ -324,14 +347,16 @@ h1 {
 
     cursor: pointer;
 
-    margin-top: 6px;
     padding: 0.8rem;
+    margin-top: 6px;
 
-    background-color: #f0ebeb;
-    color: #161616;
+    background-color: #d3d3d3;
+    color: #0e0e0e;
 
     border: 1px, #161616;
     border-radius: 4px;
+    box-shadow: none;
+    outline: none;
 
     transition: 0.2s;
 }
@@ -344,6 +369,9 @@ h1 {
 }
 
 .container-btn-2 .btn-2 {
+    display: flex;
+    align-items: center;
+
     width: 49.72%;
     cursor: pointer;
 
@@ -389,6 +417,13 @@ h1 {
     transition: 0.2s;
 }
 
+.btn-5:hover {
+    color: #f8f8f8;
+    background-color: #1f91be;
+
+    transition: 0.2s;
+}
+
 .search-button:hover {
     background-color: #919191;
 
@@ -412,6 +447,13 @@ h1 {
     color: #f0ebeb;
     text-decoration: none;
 }
+
+.a-1 {
+    border: solid 1px #161616;
+    outline-color: #1e88e5;
+    outline-width: 1px;
+}
+
 
 p {
     padding: 0.8rem;

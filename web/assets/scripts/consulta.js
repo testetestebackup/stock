@@ -50,15 +50,26 @@ function exibirResultados(resultados) {
 
             resultadoElemento.innerHTML = 
             `
-                <ul id="consulta" class = "ul-result">
-                    <li class = "li-result">
+            <ul id="consulta" class = "ul-result">
+                <li class = "li-result">
+                    <div class = "display-line">
                         Tomb: ${resultado.tombamento} |
                         Desc: ${resultado.descricao} | 
                         Status: ${resultado.idEstado} | 
                         Unidade: ${resultado.idUnidade} | 
-                        Tipo: ${resultado.idTipo} 
-                    </li>
-                </ul>
+                        Tipo: ${resultado.idTipo} | 
+                    </div>
+                        
+                    <div class = "display-line">
+                        <button id="excluir" class="material-symbols-outlined btn-3" onclick="excluirDispositivo(${resultado.tombamento})">
+                        delete
+                        </button>
+                        <a href="atualizar.html?tombamento=${resultado.tombamento}" class="material-symbols-outlined btn-4 a-1">
+                        edit
+                        </a>
+                    </div>
+                </li>
+            </ul>
             `
             ;
 

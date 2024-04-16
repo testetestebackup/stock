@@ -34,10 +34,11 @@ const adicionaDisp = (tombamento, descricao, idEstado, idUnidade, idTipo) => {
 }
 
 //atualizar dispositivo
-const atualizaDisp = (tombamento, descricao, idEstado, idUnidade, idTipo) => {
-    const info = { descricao, idEstado, idUnidade, idTipo };
+const atualizaDisp = (tombamento, descricao, idEstado, idUnidade) => {
+    const info = { descricao, idEstado:Number(idEstado), idUnidade:Number(idUnidade)};
+    console.log(info);
 
-    return fetch(`${baseUrl}/dispositivos/`, {
+    return fetch(`${baseUrl}/dispositivos/${tombamento}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -55,7 +56,16 @@ const atualizaDisp = (tombamento, descricao, idEstado, idUnidade, idTipo) => {
 }
 
 
-//deletar dispositivo
 const deletaDisp = (tombamento) => {
-
+    return fetch(`${baseUrl}/dispositivos/${tombamento}`, {
+        method: "DELETE",
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Erro ao excluir dispositivo');
+        }
+        return res.json();
+    })
+    .then(data => data)
+    .catch(error => console.error('Erro:', error));
 }

@@ -29,8 +29,6 @@
                 <div class="vertical-divider"></div>
                 <li class="li-nav"><a class="nav-a" href="consulta.html">Consulta</a></li>
                 <div class="vertical-divider"></div>
-                <li class="li-nav"><a class="nav-a" href="atualizar.html">Atualizar</a></li>
-                <div class="vertical-divider"></div>
                 <li class="li-nav"><a class="nav-a" href="estoque.html">Estoque</a></li>
                 <div class="vertical-divider"></div>
             </ul>
@@ -49,28 +47,12 @@
 
                 <div class="input-field">
 
-                    <div class="search-container">
-                        
-                        <input type="number" id="tombamentoInput3"
-                        placeholder="Digite o Tombamento do Dispositivo que quer atualizar" />
-                        
-                    </div>
-
-                </div>
-                    
-            
-                <div class="filter-field">
-
                     <select id="atualizaStatus">
                         <option value="">Atualizar Status</option>
-                        <option value="operantes">Operante</option>
-                        <option value="inoperantes">Inoperante</option>
-                        <option value="manutencao">Manutenção</option>
+                        <option value="1">Operante</option>
+                        <option value="2">Inoperante</option>
+                        <option value="3">Manutenção</option>
                     </select>
-
-                </div>
-
-                <div class="filter-field">
 
                     <select id="atualizaIdUnidade">
                         <option value="">Atualizar Unidade</option>
@@ -78,37 +60,19 @@
                         <option value="2">USF DOIS CARNEIROS BAIXO 1</option>
                         <option value="3">USF ALTO DOIS CARNEIROS 3</option>
                         <!-- Adicione as opções conforme necessário -->
-                    </select>
-                    
-                </div>
-                
-                <div class="input-field">
-
-                    <div class="search-container">
+                    </select>   
                         
                         <input type="text" id="descricaoInput2"
                         placeholder="Atualize a Descrição o do Dispositivo..." />
-                        
-                    </div>
-
-                </div>
                     
-                <div class="container-btn-2">
+                </div>                  
 
-                    <button id="excluir" class="btn-3">
-                        EXCLUIR DISPOSITIVO
-                    </button>
+                <br>
 
-                </div>
-                    
-
-                <div class="input-field">
-
-                    <button id="atualizar"  class="btn-4">
+                    <button id="atualizar"  class="btn-5">
                         Atualizar
                     </button>
 
-                </div>
                 
                 <div id="resultados1" class="result-container">
                     <!-- Aqui serão exibidos os resultados da consulta -->

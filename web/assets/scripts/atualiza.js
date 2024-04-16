@@ -1,23 +1,25 @@
 // Captura os elementos HTML relevantes
-const tombamentoInput = document.getElementById('tombamentoInput3');
 const descricaoInput = document.getElementById('descricaoInput2');
 const statusSelect = document.getElementById('atualizaStatus');
 const unidadeSelect = document.getElementById('atualizaIdUnidade');
+const queryString = window.location.search;
+const params = new URLSearchParams(queryString);
+const tombamento1 = params.get("tombamento")
 
 // Função para executar a atualização do dispositivo
 const atualizarDispositivo = (event) => {
     event.preventDefault();
     // Obtém os valores dos campos do formulário
-    const tombamento = tombamentoInput.value;
+    const tombamento = tombamento1;
     const descricao = descricaoInput.value;
     const idEstado = statusSelect.value;
     const idUnidade = unidadeSelect.value;
     
-    // Verifica se todos os campos obrigatórios foram preenchidos
-    if (!tombamento || !descricao || !idEstado || !idUnidade) {
-        alert('Por favor, preencha todos os campos obrigatórios.');
-        return;
-    }
+    // // Verifica se todos os campos obrigatórios foram preenchidos
+    // if (!descricao || !idEstado || !idUnidade) {
+    //     alert('Por favor, preencha todos os campos obrigatórios.');
+    //     return;
+    // }
     
     // Chama a função para atualizar o dispositivo na API
     atualizaDisp(tombamento, descricao, idEstado, idUnidade)
@@ -26,7 +28,6 @@ const atualizarDispositivo = (event) => {
         console.log('Dispositivo atualizado com sucesso:', data);
         alert('Dispositivo atualizado com sucesso!');
         // Limpa os campos do formulário após a atualização
-        tombamentoInput.value = '';
         descricaoInput.value = '';
         statusSelect.value = '';
         unidadeSelect.value = '';

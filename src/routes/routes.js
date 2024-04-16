@@ -3,19 +3,6 @@ const connect = require('../db/connect'); // Importe a conexão do banco de dado
 
 const router = express.Router();
 
-// // Rota para obter todos os dispositivos
-// router.get('/', (req, res) => {
-//     connect.query("SELECT * FROM dispositivos", (err, rows) => {
-//         if (err) {
-//             console.error("Erro ao obter dispositivos:", err);
-//             res.status(500).json({ error: "Erro interno do servidor" });
-//             return;
-//         }
-//         console.log(rows)
-//         res.json(rows);
-//     });
-// });
-
 router.get('/', (req, res) => {
     const { idEstado, idUnidade, status } = req.query;
 
@@ -105,10 +92,10 @@ router.post('/', (req, res) => {
 });
 
 // Rota para atualizar um dispositivo existente
-router.put('/dispositivos/:tombamento', (req, res) => {
+router.put('/:tombamento', (req, res) => {
     const { tombamento } = req.params;
-    const { descricao, idEstado, idUnidade, idTipo } = req.body;
-    connect.query("UPDATE dispositivos SET descricao = ?, idEstado = ?, idUnidade = ?, idTipo = ?, WHERE tombamento = ?", [descricao, idEstado, idUnidade, idTipo, tombamento], (err, result) => {
+    const { descricao, idEstado, idUnidade } = req.body;
+    connect.query(`UPDATE dispositivos SET descricao = '${descricao}', idEstado = '${idEstado}', idUnidade = '${idUnidade}' WHERE tombamento = '${tombamento}'`, (err, result) => {
         if (err) {
             console.error("Erro ao atualizar o dispositivo:", err);
             res.status(500).json({ error: "Erro interno do servidor" });
@@ -119,9 +106,9 @@ router.put('/dispositivos/:tombamento', (req, res) => {
 });
 
 // Rota para excluir um dispositivo
-router.delete('/dispositivos/:tombamento', (req, res) => {
+router.delete('/:tombamento', (req, res) => {
     const { tombamento } = req.params;
-    connect.query("DELETE FROM dispositivos WHERE tombamento = ?", tombamento, (err, result) => {
+    connect.query(`DELETE FROM dispositivos WHERE tombamento = '${tombamento}'`, (err, result) => {
         if (err) {
             console.error("Erro ao excluir o dispositivo:", err);
             res.status(500).json({ error: "Erro interno do servidor" });
@@ -130,6 +117,9 @@ router.delete('/dispositivos/:tombamento', (req, res) => {
         res.json({ message: "Dispositivo excluído com sucesso" });
     });
 });
+
+module.exports = router;
+
 
 // // Rota para obter o status de um dispositivo específico
 // router.get('/:idEstado/status', (req, res) => {
@@ -197,4 +187,3 @@ router.delete('/dispositivos/:tombamento', (req, res) => {
 //     });
 // });
 
-module.exports = router;
