@@ -1,4 +1,15 @@
+const select = document.getElementById('filtroIdUnidade')
 const input = document.getElementById("tombamentoInput2");
+
+const selectUnidade = getUnidade()
+
+selectUnidade.then(dados => {
+    for (const key in dados) {
+        select.innerHTML += `<option value="${dados[key].idUnidade}">${dados[key].nomeUnidade}</option>`
+    }
+
+})
+
 
 async function main() {
     const filtroStatus = document.getElementById("filtroStatus").value;
@@ -28,7 +39,7 @@ async function main() {
         // Exibir os resultados da consulta
         exibirResultados(resultado);
         
-        console.log("Resultado da consulta:", resultado);
+        //console.log("Resultado da consulta:");
     } catch (error) {
         console.error("Erro ao consultar dispositivos:", error);
     }
@@ -87,24 +98,3 @@ function exibirResultados(resultados) {
 }
 
 input.addEventListener("keyup", main)
-
-
-
-// const ul = document.getElementById("consulta")
-
-// async function main() {
-//     const res = await consultarDisp()
-    
-//     const li = res.map((dados) => {
-//         return `
-//             <li>
-//                 <h1>${dados.descricao}</h1>
-//             </li>
-//             `
-//     })
-
-//     ul.innerHTML = li;
-// };
-
-// main()
-

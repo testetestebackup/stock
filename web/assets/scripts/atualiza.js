@@ -1,10 +1,21 @@
 // Captura os elementos HTML relevantes
 const descricaoInput = document.getElementById('descricaoInput2');
 const statusSelect = document.getElementById('atualizaStatus');
-const unidadeSelect = document.getElementById('atualizaIdUnidade');
+const select = document.getElementById('atualizaIdUnidade');
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 const tombamento1 = params.get("tombamento")
+
+
+const selectUnidade = getUnidade()
+
+selectUnidade.then(dados => {
+    for (const key in dados) {
+        select.innerHTML += `<option value="${dados[key].idUnidade}">${dados[key].nomeUnidade}</option>`
+    }
+
+})
+
 
 // Função para executar a atualização do dispositivo
 const atualizarDispositivo = (event) => {

@@ -19,3 +19,14 @@ const adicionaDispositivo = (event) => {
 
 // Adiciona um evento de clique ao botão de envio
 document.getElementById('cadastrarDispositivo').addEventListener('click', adicionaDispositivo);
+
+const select = document.getElementById('unidadeInput')
+
+const selectUnidade = getUnidade()
+
+selectUnidade.then(dados => {
+    for (const key in dados) {
+        select.innerHTML += `<option value="${dados[key].idUnidade}">${dados[key].nomeUnidade}</option>`
+    }
+
+})

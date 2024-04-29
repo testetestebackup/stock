@@ -69,3 +69,17 @@ const deletaDisp = (tombamento) => {
     .then(data => data)
     .catch(error => console.error('Erro:', error));
 }
+
+const getUnidade = () => {
+    return fetch(`${baseUrl}/dispositivos/unidades`, {   
+        method: "GET",
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Erro ao achar unidade');
+        }
+        return res.json();
+    })
+    .then(data => data)
+    .catch(error => console.log('Erro', error));
+}

@@ -55,11 +55,26 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/unidades', (req,res) => {
+    connect.query("SELECT * FROM unidade", (err, result) => {
+        if (err) {
+            console.error("Erro ao obter o unidade:", err);
+            res.status(500).json({ error: "Erro interno do servidor" });
+            return;
+        }
+        if (result.length === 0) {
+            res.status(404).json({ error: "Unidade não encontrado" });
+            return;
+        }
+        res.json(result);
+    })
+})
+
 //rota louca
 router.get('/dispositivos/:tombamento', (req, res) => {
     const { tombamento } = req.params;
 
-    connect.query("SELECT * FROM dispositivos WHERE tombamento = ?", [tombamento], (err, result) => {
+    connect.query(`SELECT * FROM dispositivos WHERE tombamento LIKE '${tombamento}%'`, (err, result) => {
         if (err) {
             console.error("Erro ao obter o dispositivo pelo tombamento:", err);
             res.status(500).json({ error: "Erro interno do servidor" });
