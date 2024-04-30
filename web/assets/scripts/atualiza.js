@@ -6,7 +6,6 @@ const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 const tombamento1 = params.get("tombamento")
 
-
 const selectUnidade = getUnidade()
 
 selectUnidade.then(dados => {
@@ -15,7 +14,6 @@ selectUnidade.then(dados => {
     }
 
 })
-
 
 // Função para executar a atualização do dispositivo
 const atualizarDispositivo = (event) => {

@@ -83,3 +83,31 @@ const getUnidade = () => {
     .then(data => data)
     .catch(error => console.log('Erro', error));
 }
+
+const getTipo = () => {
+    return fetch(`${baseUrl}/dispositivos/tipodisp`, {   
+        method: "GET",
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Erro ao achar tipo');
+        }
+        return res.json();
+    })
+    .then(data => data)
+    .catch(error => console.log('Erro', error));
+}
+
+const getEquipamentos = () => {
+    return fetch(`${baseUrl}/dispositivos/equipamentos`, {
+        method: "GET",
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Erro ao procurar equipamento');
+        }
+        return res.json();
+    })
+    .then(data => data)
+    .catch(error => console.log('Erro', error));
+}

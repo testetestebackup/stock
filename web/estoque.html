@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 
     <link rel="shortcut icon" href="assets/img/jab.png" type="image/x-icon" />
 
@@ -41,40 +43,64 @@
                     <h1>Equipamentos</h1>
                 </header>
                 <hr>
-                <div class="input-field">
-                    <div class="container-input">
-                        <input type="number" id="idInputEquip" class="id-input" placeholder="Entre ID" />
-                        <input type="text" id="nomeEquipamento" class="name-input"
-                            placeholder="Digite o nome do Equipamento..." />
+                
+                    <div class="input-field">
+                        <div class="container-input">
+                            <input type="text" id="nomeEquipamento" class="name-input"
+                        placeholder="Digite o nome do Equipamento..." />
+
+                        <select id="quantidade" class="select-quantidade">
+                            <option value="">Quantidade</option>
+                        </select>
+                        
+                            <ul class="">
+                                <li class="li-result">
+                                    <div class = "display-line">
+                                        <button id="excluir" class="material-symbols-outlined btn-3" onclick="excluirDispositivo(${resultado.tombamento})">
+                                            delete
+                                        </button>
+                                        <a class="material-symbols-outlined btn-4 a-1">
+                                            add
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>    
+                        </div>
+                    </div>             
+                
+                    <div id="resultado-equipamento" class="result-container">
+                        
                     </div>
-                    <div class="container-btn-2">
-                        <button id="consultar-equipamento" class="btn-2">
-                            Consultar
-                        </button>
-                        <button id="cadastrar-equipamento" class="btn-2">
-                            Cadastar
-                        </button>
-                    </div>
-                </div>
+                
             </form>
 
             <form class="form-ics">
                 <header class="form-header">
                     <h1>Estoque</h1>
                 </header>
-                <hr>
+                    <hr>
+                    
                 <div class="input-field">
-                    <!-- <input type="number" id="dispositivoInput"
-                        placeholder="Digite ID ou Tombamento do Dispositivo..." />
-                    <input type="text" id="unidadeInput" placeholder="Digite o nome da Unidade..." /> -->
-                    <button id="pesquisar" class="search-button">
+
+                    <div id="resultados-estoque" class="">
+                        <!-- Aqui serão exibidos os resultados da consulta -->
+                    </div>
+
+                    <button id="pesquisar" type="submit" class="btn-5">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>
+
+                
             </form>
+
+
         </div>
 
     </div>
+
+    <script src="./assets/scripts/service/api.js"></script>
+    <script src="./assets/scripts/estoque.js"></script>
 </body>
 
 </html>

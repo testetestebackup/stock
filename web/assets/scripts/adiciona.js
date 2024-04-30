@@ -30,3 +30,14 @@ selectUnidade.then(dados => {
     }
 
 })
+
+const tipo = document.getElementById('tipoInput')
+
+const selectTipo = getTipo()
+
+selectTipo.then(dadotipo => {
+    for (const key in dadotipo) {
+        tipo.innerHTML+= `<option value="${dadotipo[key].idTipo}">${dadotipo[key].nomeTipo}</option>`
+    }
+
+})

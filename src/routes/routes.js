@@ -55,6 +55,23 @@ router.get('/', (req, res) => {
     });
 });
 
+//ROTA PARA POR tipos NO SELECT
+router.get('/tipodisp', (req,res) => {
+    connect.query("SELECT * FROM tipodisp", (err, result) => {
+        if (err) {
+            console.error("Erro ao obter o Tipo:", err);
+            res.status(500).json({ error: "Erro interno do servidor" });
+            return;
+        }
+        if (result.length === 0) {
+            res.status(404).json({ error: "Tipo não encontrado" });
+            return;
+        }
+        res.json(result);
+    })
+})
+
+//ROTA PARA POR UNIDADES NO SELECT
 router.get('/unidades', (req,res) => {
     connect.query("SELECT * FROM unidade", (err, result) => {
         if (err) {
@@ -132,6 +149,23 @@ router.delete('/:tombamento', (req, res) => {
         res.json({ message: "Dispositivo excluído com sucesso" });
     });
 });
+
+//rota para pegar itens equipamento
+router.get('/equipamentos', (req, res) => {
+    connect.query("SELECT * FROM equipamentos", (err, result) => {
+        if (err) {
+            console.error("Erro ao obter equipamentos:", err);
+            res.status(500).json({ error: "Erro interno do servidor" });
+            return;
+        }
+        if (result.length === 0) {
+            res.status(404).json({ error: "Equipamentos não encontrados" });
+            return;
+        }
+        res.json(result);
+    })
+})
+
 
 module.exports = router;
 
