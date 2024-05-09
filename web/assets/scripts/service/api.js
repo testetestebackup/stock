@@ -111,3 +111,117 @@ const getEquipamentos = () => {
     .then(data => data)
     .catch(error => console.log('Erro', error));
 }
+
+const getEstoque = () => {
+    return fetch(`${baseUrl}/dispositivos/estoque`, {
+        method: "GET",
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Erro ao buscar estoque');
+        }
+        return res.json();
+    })
+    .then(data => data)
+    .catch(error => console.log('Erro', error));
+}
+
+const getIdEquip = () => {
+    return fetch(`${baseUrl}/dispositivos/estoque/:idEquip`, {
+        method: "GET",
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Erro ao buscar equipamento no estoque');
+        }
+        return res.json();
+    })
+    .then(data => data)
+    .catch(error => console.log('Erro', error));
+}
+
+const deletaEquip = (idEquip) => {
+    console.log("ID do Equipamento:", idEquip);
+    return fetch(`${baseUrl}/dispostivos/equipamentos/${idEquip}`, {
+        method: "DELETE",
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Erro ao excluir dispositivo');
+        }
+        return res.json({mensangem:'sexo'});
+    })
+    .then(data => data)
+    .catch(error => console.error('Erro:', error));
+}
+
+const adicionaEquip = (idEquip, nomeEquip) => {
+    const data = {idEquip, nomeEquip}
+    const body = JSON.stringify(data)
+    fetch(`${baseUrl}/dispositivos/equipamentos`,
+    {
+        method: 'POST',
+        headers: 
+        {
+        'Content-Type': 'application/json'
+        },
+        body
+    })
+    return "ok!"
+}
+
+const adicionaEstoque = (idEquip, quantidade) => {
+    const body = JSON.stringify({ idEquip, quantidade }); // Envia o ID do equipamento e a quantidade
+    return fetch(`${baseUrl}/dispositivos/estoque`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao adicionar itens de estoque');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        return "ok!";
+    })
+    .catch(error => {
+        console.error(error);
+        return "Erro ao adicionar itens de estoque";
+    });
+}
+
+const deletaEstoque = (idEquip, quantidade) => {
+    console.log("ID do Equipamento API:", idEquip);
+    console.log("Quantidade:", quantidade);
+
+    const body = JSON.stringify({ quantidade }); // Envia o ID do equipamento e a quantidade
+    return fetch(`${baseUrl}/dispositivos/estoque/${idEquip}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao excluir itens de estoque');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        return "ok!";
+    })
+    .catch(error => {
+        console.error(error);
+        return "Erro ao excluir itens de estoque";
+    });
+}
+
+
+

@@ -166,73 +166,111 @@ router.get('/equipamentos', (req, res) => {
     })
 })
 
+//rota para pegar estoque
+router.get('/estoque', (req, res) => {
+    connect.query("SELECT * FROM estoque", (err, result) => {
+        if (err) {
+            console.error("Erro ao obter estoque:", err);
+            res.status(500).json({ error: "Erro interno do servidor" });
+            return;
+        }
+        if (result.length === 0) {
+            res.status(404).json({ error: "Estoque não encontrado" });
+            return;
+        }
+        res.json(result);
+    })
+})
+
+
+//rota louca 2
+router.get('/estoque/:idEquip', (req, res) => {
+    const { idEquip } = req.params;
+
+    connect.query(`SELECT * FROM estoque WHERE idEquip = '${idEquip}'`, (err, result) => {
+        if (err) {
+            console.error("Erro ao obter o equipamento pelo id:", err);
+            res.status(500).json({ error: "Erro interno do servidor" });
+            return;
+        }
+        if (result.length === 0) {
+            res.status(404).json({ error: "equipamento não encontrado" });
+            return;
+        }
+        res.json(result); // Retorna os dispositivos encontrados com o tombamento especificado
+    });
+});
+
+
+
+// Rota para adicionar um novo equipamento
+router.post('/equipamentos', (req, res) => {
+    console.log(req.body);
+    const { idEquip, nomeEquip } = req.body;
+    connect.query(`INSERT INTO equipamentos (idEquip, nomeEquip) VALUES ('${idEquip}', '${nomeEquip}')`, (err, result) => {
+        if (err) {
+            console.error("Erro ao adicionar equipamento:", err);
+            res.status(500).json({ error: "Erro interno do servidor" });
+            return;
+        }
+        res.status(201).json({ message: "equipamento adicionado com sucesso", id: result.insertId });
+    });
+});
+
+router.post('/estoque', (req, res) => {
+    const { idEquip, quantidade } = req.body; // Recebe o ID do equipamento e a quantidade especificada pelo usuário
+
+    // Itera sobre a quantidade especificada
+    for (let i = 0; i < quantidade; i++) {
+        // Insere o item de estoque no banco de dados
+        connect.query(`INSERT INTO estoque (idEquip) VALUES ('${idEquip}')`, (err, result) => {
+            if (err) {
+                console.error("Erro ao adicionar item de estoque:", err);
+                res.status(500).json({ error: "Erro interno do servidor" });
+                return;
+            }
+            console.log(`Item de estoque adicionado com idEstoque ${result.insertId}`);
+        });
+    }
+
+    res.status(201).json({ message: "Itens de estoque adicionados com sucesso" });
+});
+
+// Rota para excluir itens de estoque
+router.delete('/estoque/:id', (req, res) => {
+    const { idEquip, quantidade } = req.body; // Recebe o ID do equipamento e a quantidade especificada pelo usuário
+
+    console.log("ID do equipamento:", idEquip);
+    console.log("Quantidade a ser excluída:", quantidade);
+
+    // Exclui a quantidade especificada de itens de estoque
+    connect.query(`DELETE FROM estoque WHERE idEquip = '${req.params.id}' LIMIT ${quantidade}`, (err, result) => {
+        if (err) {
+            console.error("Erro ao excluir item(s) de estoque:", err);
+            res.status(500).json({ error: "Erro interno do servidor" });
+            return;
+        }
+        console.log(`${result.affectedRows} item(s) de estoque excluído(s) com idEquip ${idEquip}`);
+        res.status(200).json({ message: `${result.affectedRows} item(s) de estoque excluído(s) com sucesso` });
+    });
+});
+
+// Rota para excluir equipamentos
+router.delete('/equipamentos/:idEquip', (req, res) => {
+    const { idEquip } = req.params;
+
+    console.log("ID do equipamento:", idEquip);
+
+    connect.query(`DELETE FROM equipamentos WHERE idEquip = '${idEquip}'`, (err, result) => {
+        if (err) {
+            console.error("Erro ao excluir o equipamento:", err);
+            res.status(500).json({ error: "Erro interno do servidor" });
+            return;
+        }
+        res.status(200).json(result);
+    });
+});
+
 
 module.exports = router;
-
-
-// // Rota para obter o status de um dispositivo específico
-// router.get('/:idEstado/status', (req, res) => {
-//     const { idEstado } = req.params;
-//     connect.query("SELECT estado.estadoDispositivo FROM dispositivos INNER JOIN estado ON dispositivos.idEstado = estado.idEstado WHERE dispositivos.idEstado = ?", idEstado, (err, result) => {
-//         if (err) {
-//             console.error("Erro ao obter o status do dispositivo:", err);
-//             res.status(500).json({ error: "Erro interno do servidor" });
-//             return;
-//         }
-//         if (result.length === 0) {
-//             res.status(404).json({ error: "Dispositivo não encontrado" });
-//             return;
-//         }
-//         res.json({ status: result[0].estadoDispositivo });
-//     });
-// });
-
-// // Rota para obter todos os dispositivos dentro de uma unidade específica
-// router.get('/unidades/:idUnidade', (req, res) => {
-//     const { idUnidade } = req.params;
-//     connect.query("SELECT * FROM dispositivos WHERE idUnidade = ?", idUnidade, (err, result) => {
-//         if (err) {
-//             console.error("Erro ao obter os dispositivos da unidade:", err);
-//             res.status(500).json({ error: "Erro interno do servidor" });
-//             return;
-//         }
-//         res.json(result);
-//     });
-// });
-
-// // Rota para obter todos os dispositivos operantes
-// router.get('/operantes', (req, res) => {
-//     connect.query("SELECT * FROM dispositivos WHERE idEstado = 1", (err, result) => {
-//         if (err) {
-//             console.error("Erro ao obter os dispositivos operantes:", err);
-//             res.status(500).json({ error: "Erro interno do servidor" });
-//             return;
-//         }
-//         res.json(result);
-//     });
-// });
-
-// // Rota para obter todos os dispositivos em manutenção
-// router.get('/manutencao', (req, res) => {
-//     connect.query("SELECT * FROM dispositivos WHERE idEstado = 2", (err, result) => {
-//         if (err) {
-//             console.error("Erro ao obter os dispositivos em manutenção:", err);
-//             res.status(500).json({ error: "Erro interno do servidor" });
-//             return;
-//         }
-//         res.json(result);
-//     });
-// });
-
-// // Rota para obter todos os dispositivos inoperantes
-// router.get('/inoperantes', (req, res) => {
-//     connect.query("SELECT * FROM dispositivos WHERE idEstado = 3", (err, result) => {
-//         if (err) {
-//             console.error("Erro ao obter os dispositivos inoperantes:", err);
-//             res.status(500).json({ error: "Erro interno do servidor" });
-//             return;
-//         }
-//         res.json(result);
-//     });
-// });
 

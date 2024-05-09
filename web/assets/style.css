@@ -120,13 +120,17 @@ h1 {
 
 }
 
+hr {
+    margin-bottom: 15px;
+}
+
 .form-ics .input-field {
     width: 100%;
     flex: 1;
 
     border: 1px, #161616;
 
-    margin-top: 15px;
+    /* margin-top: 15px; */
     
 
 }
@@ -159,6 +163,7 @@ h1 {
     border: 1px solid #161616;
     border-radius: 4px;
 
+    margin-bottom: 15px;
     margin-top: 15px;
 }
 
@@ -188,6 +193,31 @@ h1 {
 .select-quantidade {
     max-width: 25%;
     margin-left: 6px;
+
+}
+
+.small-box {
+    max-width: 15%;
+    /* margin-left: 6px; */
+    margin-right: 6px;
+    
+}
+
+.medium-box {
+    display: flex;
+    justify-content: space-around;
+    /* max-width: auto; */
+    min-width: 50px;
+
+
+}
+
+.small-button {
+    padding: 0.8rem;
+    max-height: 50px;
+    max-width: 50px;
+    margin-left: 6px;
+    
 }
 
 /* Estilos para a barra de rolagem */
@@ -218,11 +248,12 @@ h1 {
     font-family: "Poppins", sans-serif;
     font-size: 12px;
     font-style: normal;
+    border-bottom: 1px solid #0e0e0e;
 
 }
 
 .iten-list {
-    border-bottom: 1px solid #0e0e0e;
+    /* border-bottom: 1px solid #0e0e0e; */
     /* border-right: 1px solid #0e0e0e; */
 }
 
@@ -233,7 +264,7 @@ h1 {
 
 }
 
-.li-result li:last-child {
+ul .ul-result .li-result .iten-list:last-child {
     border-bottom: none; /* Remove a linha de divisão do último item */
 }
 

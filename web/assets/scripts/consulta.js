@@ -62,7 +62,7 @@ function exibirResultados(resultados) {
             resultadoElemento.innerHTML = 
             `
             <ul id="consulta" class = "ul-result">
-                <li class = "li-result iten-list poppins-semibold">
+                <li class = "li-result poppins-semibold">
                     <div class = "display-line">
                         Tomb: ${resultado.tombamento} |
                         Desc: ${resultado.descricao} | 
