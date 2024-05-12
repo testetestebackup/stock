@@ -81,7 +81,7 @@ body {
 
 
     /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
-    box-shadow: #333 0px 3px 8px;
+    /* box-shadow: #333 0px 3px 8px; */
 
 }
 
@@ -160,6 +160,8 @@ hr {
     overflow-y: auto; /* Adiciona uma barra de rolagem vertical */
     overflow-x: hidden; /* Oculta a barra de rolagem horizontal */
 
+    position: relative;
+
     border: 1px solid #161616;
     border-radius: 4px;
 
@@ -220,6 +222,7 @@ hr {
     
 }
 
+
 /* Estilos para a barra de rolagem */
 .result-container::-webkit-scrollbar {
     width: 10px; /* Largura da barra de rolagem */
@@ -250,11 +253,6 @@ hr {
     font-style: normal;
     border-bottom: 1px solid #0e0e0e;
 
-}
-
-.iten-list {
-    /* border-bottom: 1px solid #0e0e0e; */
-    /* border-right: 1px solid #0e0e0e; */
 }
 
 .li-result:hover {

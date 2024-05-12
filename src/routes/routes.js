@@ -183,10 +183,9 @@ router.get('/estoque', (req, res) => {
 
 
 //rota louca 2
-router.get('/estoque/:idEquip', (req, res) => {
-    const { idEquip } = req.params;
+router.get('/estoque', (req, res) => {
 
-    connect.query(`SELECT * FROM estoque WHERE idEquip = '${idEquip}'`, (err, result) => {
+    connect.query(`SELECT * FROM estoque`, (err, result) => {
         if (err) {
             console.error("Erro ao obter o equipamento pelo id:", err);
             res.status(500).json({ error: "Erro interno do servidor" });
@@ -270,28 +269,16 @@ router.delete('/equipamentos/:idEquip', (req, res) => {
     });
 });
 
-router.get('/equipamentos', (req, res) => {
-    const { idEquip } = req.query;
-
-    let query = "SELECT * FROM equipamentos";
-
-    const conditions = [];
-
-    if (idEquip) {
-        conditions.push(`idUnidade = ${idEquip}`);
-    }
-
-    if (conditions.length > 0) {
-        query += ` WHERE ${conditions.join(' AND ')}`;
-    }
-
-    connect.query(query, (err, rows) => {
+router.get('/estoque/:idEquip', (req, res) => {
+    const { idEquip } = req.params;
+    console.log(idEquip)
+    connect.query(`SELECT * FROM estoque WHERE idEquip = ${idEquip}`, (err, rows) => {
         if (err) {
             console.error("Erro ao obter dispositivos:", err);
             res.status(500).json({ error: "Erro interno do servidor" });
             return;
         }
-        res.json(rows);
+        res.status(200).json(rows);
     });
 });
 

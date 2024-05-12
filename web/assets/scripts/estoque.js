@@ -1,7 +1,7 @@
 const listaEquip = document.getElementById('resultado-equipamento')
 const select = document.getElementById('selectEquipamento')
 const filtroEquip = document.getElementById('idFiltro')
-// const estoque = document.getElementById('resultados-estoque')
+const estoque = document.getElementById('resultados-estoque')
 
 const resultEquip = getEquipamentos()
 
@@ -48,49 +48,61 @@ selectFiltro.then(dados => {
 })
 
 
-async function consultaEquip() {
+
+async function consultarIdEquip() {
     const filtroEquip = document.getElementById("idFiltro").value;
 
-    let filtros = {};
-
-    if (filtroEquip) {
-        filtros.idEquip = filtroEquip;
-    }
-
+    console.log(filtroEquip)
     try {
+        
         // Consultar dispositivos com os filtros
         let resultado 
-        resultado = await consultarEquip({ idEquip });
+        resultado = await getIdEstoque(filtroEquip);
 
         // Exibir os resultados da consulta
-        exibirEstoque(resultado);
+        exibirIdEstoque(resultado);
         
         //console.log("Resultado da consulta:");
     } catch (error) {
-        console.error("Erro ao consultar dispositivos:", error);
+        console.error("Erro ao consultar estoque:", error);
     }
 }
 
-function exibirEstoque(resultados) {
+function exibirIdEstoque(resultados) {
     const containerResult = document.getElementById("resultados-estoque");
 
     // Limpar o conteúdo anterior do container
     containerResult.innerHTML = "";
 
+    
     // Verificar se há resultados a serem exibidos
     if (resultados && resultados.length > 0) {
 
-        // Criar elementos HTML para cada resultado e adicionar ao container
-        resultados.forEach(dados => {
-            const resultadoElemento = document.createElement("div");
+        var resultadoElemento = document.createElement("div");
+        
+        console.log(resultados);
 
-            resultadoElemento.innerHTML = 
+        resultadoElemento.innerHTML = 
+        `
+        <ul id = "quantidadeEstoque" class = "ul-result">
+            <li class = "li-result poppins-semibold">
+                <div class = "display-line">
+                    QUANTIDADE: ${resultados.length}
+                </div>
+            </li>
+        </ul>
+        `
+
+        // Criar elementos HTML para cada resultado e adicionar ao container
+        for(const key in resultados){
+            
+            resultadoElemento.innerHTML += 
             `
             <ul id = "consulta" class = "ul-result">
                 <li class = "li-result poppins-semibold">
                     <div class = "display-line">
-                            TIPO: ${dados[key].idEquip} |
-                            ID UNICO: ${dados[key].idEstoque} 
+                        TIPO: ${resultados[key].idEquip} |
+                        ID UNICO: ${resultados[key].idEstoque} 
                     </div>
                 </li>
             </ul>
@@ -98,7 +110,7 @@ function exibirEstoque(resultados) {
             ;
 
             containerResult.appendChild(resultadoElemento);
-        });
+        }
 
     } else {
 
@@ -110,24 +122,36 @@ function exibirEstoque(resultados) {
     }
 }
 
+const exibirEstoque = getEstoque()
 
+exibirEstoque.then(dados => {
+    
+    console.log(dados)
 
+    estoque.innerHTML += 
+    `
+    <ul id = "quantidadeEstoque" class = "ul-result">
+        <li class = "li-result poppins-semibold">
+            <div class = "display-line">
+                QUANTIDADE: ${dados.length}
+            </div>
+        </li>
+    </ul>
+    `
 
-// const exibirEstoque = getEstoque()
+    for(const key in dados){
 
-// exibirEstoque.then(dados => {
-//     for(const key in dados){
-//         estoque.innerHTML += 
-//         `
-//             <ul id = "consulta" class = "ul-result">
-//                 <li class = "li-result poppins-semibold">
-//                     <div class = "display-line">
-//                             TIPO: ${dados[key].idEquip} |
-//                             ID UNICO: ${dados[key].idEstoque} 
-//                     </div>
-//                 </li>
-//             </ul>
-//         `
-//     }
-// })
+        estoque.innerHTML += 
+        `
+            <ul id = "consulta" class = "ul-result">
+                <li class = "li-result poppins-semibold">
+                    <div class = "display-line">
+                            TIPO: ${dados[key].idEquip} |
+                            ID UNICO: ${dados[key].idEstoque} 
+                    </div>
+                </li>
+            </ul>
+        `
+    }
+})
 

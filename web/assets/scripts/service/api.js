@@ -126,28 +126,24 @@ const getEquipamentos = () => {
     .catch(error => console.log('Erro', error));
 }
 
-// const getEstoque = () => {
-//     return fetch(`${baseUrl}/dispositivos/estoque`, {
-//         method: "GET",
-//     })
-//     .then(res => {
-//         if (!res.ok) {
-//             throw new Error('Erro ao buscar estoque');
-//         }
-//         return res.json();
-//     })
-//     .then(data => data)
-//     .catch(error => console.log('Erro', error));
-// }
-
-
-const getEstoque = (filtros) => {
-    let url = `${baseUrl}/dispositivos/estoque`
-    // Se houver filtros, adiciona à URL
-    if (filtros) {
-            url += '?' + Object.keys(filtros).map(key => `${key}=${filtros[key]}`).join('&');
+const getEstoque = () => {
+    return fetch(`${baseUrl}/dispositivos/estoque`, {
+        method: "GET",
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Erro ao buscar estoque');
         }
+        return res.json();
+    })
+    .then(data => data)
+    .catch(error => console.log('Erro', error));
+}
 
+
+const getIdEstoque = (idEquip) => {
+    let url = `${baseUrl}/dispositivos/estoque/${idEquip}`
+    // Se houver filtros, adiciona à URL
     return fetch(url, { method: "GET" })
     .then(res => {
         if (!res.ok) {
@@ -159,8 +155,8 @@ const getEstoque = (filtros) => {
     .catch(error => console.log('Erro', error));
 }
 
-const getIdEquip = () => {
-    return fetch(`${baseUrl}/dispositivos/estoque/:idEquip`, {
+const getEquip = () => {
+    return fetch(`${baseUrl}/dispositivos/estoque`, {
         method: "GET",
     })
     .then(res => {
