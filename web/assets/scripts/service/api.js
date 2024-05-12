@@ -98,6 +98,20 @@ const getTipo = () => {
     .catch(error => console.log('Erro', error));
 }
 
+const getStatus = () => {
+    return fetch(`${baseUrl}/dispositivos/estado`, {   
+        method: "GET",
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Erro ao achar estado');
+        }
+        return res.json();
+    })
+    .then(data => data)
+    .catch(error => console.log('Erro', error));
+}
+
 const getEquipamentos = () => {
     return fetch(`${baseUrl}/dispositivos/equipamentos`, {
         method: "GET",
@@ -112,10 +126,29 @@ const getEquipamentos = () => {
     .catch(error => console.log('Erro', error));
 }
 
-const getEstoque = () => {
-    return fetch(`${baseUrl}/dispositivos/estoque`, {
-        method: "GET",
-    })
+// const getEstoque = () => {
+//     return fetch(`${baseUrl}/dispositivos/estoque`, {
+//         method: "GET",
+//     })
+//     .then(res => {
+//         if (!res.ok) {
+//             throw new Error('Erro ao buscar estoque');
+//         }
+//         return res.json();
+//     })
+//     .then(data => data)
+//     .catch(error => console.log('Erro', error));
+// }
+
+
+const getEstoque = (filtros) => {
+    let url = `${baseUrl}/dispositivos/estoque`
+    // Se houver filtros, adiciona à URL
+    if (filtros) {
+            url += '?' + Object.keys(filtros).map(key => `${key}=${filtros[key]}`).join('&');
+        }
+
+    return fetch(url, { method: "GET" })
     .then(res => {
         if (!res.ok) {
             throw new Error('Erro ao buscar estoque');
@@ -140,9 +173,9 @@ const getIdEquip = () => {
     .catch(error => console.log('Erro', error));
 }
 
-const deletaEquip = (idEquip) => {
+const deletaEquip = (idEquip, event) => {
     console.log("ID do Equipamento:", idEquip);
-    return fetch(`${baseUrl}/dispostivos/equipamentos/${idEquip}`, {
+    fetch(`${baseUrl}/dispositivos/equipamentos/${idEquip}`, {
         method: "DELETE",
     })
     .then(res => {
@@ -222,6 +255,4 @@ const deletaEstoque = (idEquip, quantidade) => {
         return "Erro ao excluir itens de estoque";
     });
 }
-
-
 

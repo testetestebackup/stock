@@ -1,4 +1,5 @@
 const select = document.getElementById('filtroIdUnidade')
+const selectSt = document.getElementById("filtroStatus");
 const input = document.getElementById("tombamentoInput2");
 
 const selectUnidade = getUnidade()
@@ -10,6 +11,14 @@ selectUnidade.then(dados => {
 
 })
 
+const selectStatus = getStatus()
+
+selectStatus.then(dados => {
+    for (const key in dados) {
+        selectSt.innerHTML += `<option value="${dados[key].idEstado}">${dados[key].estadoDispositivo}</option>`
+    }
+
+})
 
 async function main() {
     const filtroStatus = document.getElementById("filtroStatus").value;
@@ -19,7 +28,7 @@ async function main() {
     let filtros = {};
 
     if (filtroStatus) {
-        filtros.status = filtroStatus;
+        filtros.idEstado = filtroStatus;
     }
 
     if (filtroIdUnidade) {

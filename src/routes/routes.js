@@ -4,45 +4,22 @@ const connect = require('../db/connect'); // Importe a conexão do banco de dado
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    const { idEstado, idUnidade, status } = req.query;
+    const { idUnidade, idEstado } = req.query;
 
     let query = "SELECT * FROM dispositivos";
 
-    if (idEstado) {
-        query += ` WHERE idEstado = ${idEstado}`;
-    }
+    const conditions = [];
 
     if (idUnidade) {
-        if (query.includes("WHERE")) {
-            query += ` AND idUnidade = ${idUnidade}`;
-        } else {
-            query += ` WHERE idUnidade = ${idUnidade}`;
-        }
+        conditions.push(`idUnidade = ${idUnidade}`);
     }
 
-    if (status) {
-        let estadoId;
-        switch (status) {
-            case 'operantes':
-                estadoId = 1;
-                break;
-            case 'inoperantes':
-                estadoId = 2;
-                break;
-            case 'manutencao':
-                estadoId = 3;
-                break;
-            default:
-                estadoId = null;
-        }
+    if (idEstado) {
+        conditions.push(`idEstado = ${idEstado}`);
+    }
 
-        if (estadoId !== null) {
-            if (query.includes("WHERE")) {
-                query += ` AND idEstado = ${estadoId}`;
-            } else {
-                query += ` WHERE idEstado = ${estadoId}`;
-            }
-        }
+    if (conditions.length > 0) {
+        query += ` WHERE ${conditions.join(' AND ')}`;
     }
 
     connect.query(query, (err, rows) => {
@@ -54,6 +31,7 @@ router.get('/', (req, res) => {
         res.json(rows);
     });
 });
+
 
 //ROTA PARA POR tipos NO SELECT
 router.get('/tipodisp', (req,res) => {
@@ -150,6 +128,25 @@ router.delete('/:tombamento', (req, res) => {
     });
 });
 
+//rota para pegar STATUS
+router.get('/estado', (req, res) => {
+    connect.query("SELECT * FROM estado", (err, result) => {
+        if (err) {
+            console.error("Erro ao obter status:", err);
+            res.status(500).json({ error: "Erro interno do servidor" });
+            return;
+        }
+        if (result.length === 0) {
+            res.status(404).json({ error: "Status não encontrado" });
+            return;
+        }
+        res.json(result);
+    })
+})
+
+
+
+
 //rota para pegar itens equipamento
 router.get('/equipamentos', (req, res) => {
     connect.query("SELECT * FROM equipamentos", (err, result) => {
@@ -181,6 +178,8 @@ router.get('/estoque', (req, res) => {
         res.json(result);
     })
 })
+
+
 
 
 //rota louca 2
@@ -259,7 +258,7 @@ router.delete('/estoque/:id', (req, res) => {
 router.delete('/equipamentos/:idEquip', (req, res) => {
     const { idEquip } = req.params;
 
-    console.log("ID do equipamento:", idEquip);
+    console.log("Recebida solicitação para excluir o equipamento com ID:", idEquip); // Adicionando um log aqui
 
     connect.query(`DELETE FROM equipamentos WHERE idEquip = '${idEquip}'`, (err, result) => {
         if (err) {
@@ -268,6 +267,31 @@ router.delete('/equipamentos/:idEquip', (req, res) => {
             return;
         }
         res.status(200).json(result);
+    });
+});
+
+router.get('/equipamentos', (req, res) => {
+    const { idEquip } = req.query;
+
+    let query = "SELECT * FROM equipamentos";
+
+    const conditions = [];
+
+    if (idEquip) {
+        conditions.push(`idUnidade = ${idEquip}`);
+    }
+
+    if (conditions.length > 0) {
+        query += ` WHERE ${conditions.join(' AND ')}`;
+    }
+
+    connect.query(query, (err, rows) => {
+        if (err) {
+            console.error("Erro ao obter dispositivos:", err);
+            res.status(500).json({ error: "Erro interno do servidor" });
+            return;
+        }
+        res.json(rows);
     });
 });
 
