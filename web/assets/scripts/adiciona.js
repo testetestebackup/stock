@@ -12,9 +12,6 @@ const adicionaDispositivo = (event) => {
     
     // Chama a função para adicionar dispositivo com os valores capturados
     const resultado = adicionaDisp(tombamento, descricao, idEstado, idUnidade, idTipo);
-    
-    // Exibe uma mensagem de sucesso ou erro (se desejar)
-    console.log(resultado);
 }
 
 // Adiciona um evento de clique ao botão de envio

@@ -5,7 +5,6 @@ const cadastraEstoque = (event) => {
     const quantidade = document.getElementById("quantidade").value
 
     const cadastrar = adicionaEstoque(idEquip, quantidade);
-    console.log(cadastrar);
 }
 
 document.getElementById('cadastre').addEventListener('click', cadastraEstoque);

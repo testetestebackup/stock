@@ -47,12 +47,9 @@ selectFiltro.then(dados => {
     }
 })
 
-
-
 async function consultarIdEquip() {
     const filtroEquip = document.getElementById("idFiltro").value;
 
-    console.log(filtroEquip)
     try {
         
         // Consultar dispositivos com os filtros
@@ -62,7 +59,6 @@ async function consultarIdEquip() {
         // Exibir os resultados da consulta
         exibirIdEstoque(resultado);
         
-        //console.log("Resultado da consulta:");
     } catch (error) {
         console.error("Erro ao consultar estoque:", error);
     }
@@ -79,8 +75,6 @@ function exibirIdEstoque(resultados) {
     if (resultados && resultados.length > 0) {
 
         var resultadoElemento = document.createElement("div");
-        
-        console.log(resultados);
 
         resultadoElemento.innerHTML = 
         `
@@ -125,8 +119,6 @@ function exibirIdEstoque(resultados) {
 const exibirEstoque = getEstoque()
 
 exibirEstoque.then(dados => {
-    
-    console.log(dados)
 
     estoque.innerHTML += 
     `

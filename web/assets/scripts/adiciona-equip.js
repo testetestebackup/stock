@@ -6,7 +6,6 @@ const adicionaEquipamento = (event) => {
 
 
     const adicionar = adicionaEquip(idEquip, nomeEquip);
-    console.log(adicionar);
 }
 
 document.getElementById('adicionar').addEventListener('click', adicionaEquipamento);

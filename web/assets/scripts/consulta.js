@@ -48,7 +48,6 @@ async function main() {
         // Exibir os resultados da consulta
         exibirResultados(resultado);
         
-        //console.log("Resultado da consulta:");
     } catch (error) {
         console.error("Erro ao consultar dispositivos:", error);
     }

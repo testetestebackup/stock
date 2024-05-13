@@ -89,7 +89,6 @@ router.get('/dispositivos/:tombamento', (req, res) => {
 
 // Rota para adicionar um novo dispositivo
 router.post('/', (req, res) => {
-    console.log(req.body);
     const { tombamento, descricao, idEstado, idUnidade, idTipo } = req.body;
     connect.query("INSERT INTO dispositivos (tombamento, descricao, idEstado, idUnidade, idTipo) VALUES (?, ?, ?, ?, ?)", [tombamento, descricao, idEstado, idUnidade, idTipo], (err, result) => {
         if (err) {
@@ -203,7 +202,6 @@ router.get('/estoque', (req, res) => {
 
 // Rota para adicionar um novo equipamento
 router.post('/equipamentos', (req, res) => {
-    console.log(req.body);
     const { idEquip, nomeEquip } = req.body;
     connect.query(`INSERT INTO equipamentos (idEquip, nomeEquip) VALUES ('${idEquip}', '${nomeEquip}')`, (err, result) => {
         if (err) {
@@ -227,7 +225,6 @@ router.post('/estoque', (req, res) => {
                 res.status(500).json({ error: "Erro interno do servidor" });
                 return;
             }
-            console.log(`Item de estoque adicionado com idEstoque ${result.insertId}`);
         });
     }
 
@@ -237,10 +234,6 @@ router.post('/estoque', (req, res) => {
 // Rota para excluir itens de estoque
 router.delete('/estoque/:id', (req, res) => {
     const { idEquip, quantidade } = req.body; // Recebe o ID do equipamento e a quantidade especificada pelo usuário
-
-    console.log("ID do equipamento:", idEquip);
-    console.log("Quantidade a ser excluída:", quantidade);
-
     // Exclui a quantidade especificada de itens de estoque
     connect.query(`DELETE FROM estoque WHERE idEquip = '${req.params.id}' LIMIT ${quantidade}`, (err, result) => {
         if (err) {
@@ -248,7 +241,6 @@ router.delete('/estoque/:id', (req, res) => {
             res.status(500).json({ error: "Erro interno do servidor" });
             return;
         }
-        console.log(`${result.affectedRows} item(s) de estoque excluído(s) com idEquip ${idEquip}`);
         res.status(200).json({ message: `${result.affectedRows} item(s) de estoque excluído(s) com sucesso` });
     });
 });
@@ -256,8 +248,6 @@ router.delete('/estoque/:id', (req, res) => {
 // Rota para excluir equipamentos
 router.delete('/equipamentos/:idEquip', (req, res) => {
     const { idEquip } = req.params;
-
-    console.log("Recebida solicitação para excluir o equipamento com ID:", idEquip); // Adicionando um log aqui
 
     connect.query(`DELETE FROM equipamentos WHERE idEquip = '${idEquip}'`, (err, result) => {
         if (err) {
@@ -271,7 +261,6 @@ router.delete('/equipamentos/:idEquip', (req, res) => {
 
 router.get('/estoque/:idEquip', (req, res) => {
     const { idEquip } = req.params;
-    console.log(idEquip)
     connect.query(`SELECT * FROM estoque WHERE idEquip = ${idEquip}`, (err, rows) => {
         if (err) {
             console.error("Erro ao obter dispositivos:", err);

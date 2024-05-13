@@ -36,7 +36,6 @@ const adicionaDisp = (tombamento, descricao, idEstado, idUnidade, idTipo) => {
 //atualizar dispositivo
 const atualizaDisp = (tombamento, descricao, idEstado, idUnidade) => {
     const info = { descricao, idEstado:Number(idEstado), idUnidade:Number(idUnidade)};
-    console.log(info);
 
     return fetch(`${baseUrl}/dispositivos/${tombamento}`, {
         method: "PUT",
@@ -170,7 +169,6 @@ const getEquip = () => {
 }
 
 const deletaEquip = (idEquip, event) => {
-    console.log("ID do Equipamento:", idEquip);
     fetch(`${baseUrl}/dispositivos/equipamentos/${idEquip}`, {
         method: "DELETE",
     })
@@ -178,7 +176,7 @@ const deletaEquip = (idEquip, event) => {
         if (!res.ok) {
             throw new Error('Erro ao excluir dispositivo');
         }
-        return res.json({mensangem:'sexo'});
+        return res.json();
     })
     .then(data => data)
     .catch(error => console.error('Erro:', error));
@@ -225,9 +223,6 @@ const adicionaEstoque = (idEquip, quantidade) => {
 }
 
 const deletaEstoque = (idEquip, quantidade) => {
-    console.log("ID do Equipamento API:", idEquip);
-    console.log("Quantidade:", quantidade);
-
     const body = JSON.stringify({ quantidade }); // Envia o ID do equipamento e a quantidade
     return fetch(`${baseUrl}/dispositivos/estoque/${idEquip}`, {
         method: 'DELETE',
