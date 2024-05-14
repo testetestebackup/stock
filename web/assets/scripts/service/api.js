@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3300"
+const baseUrl = "http://10.87.20.2:3300"
 
 const consultarDisp = (filtros) => {
     let url = `${baseUrl}/dispositivos`;

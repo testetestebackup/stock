@@ -9,7 +9,7 @@ const connect = createConnection({
 
 connect.connect((err)=>{
     if (err) throw err
-    console.log("conectou!!!!!!!!!! porra")
+    console.log("conectou")
 })
 
 module.exports = connect
